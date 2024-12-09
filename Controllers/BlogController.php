@@ -9,7 +9,7 @@ $offset = ($page - 1) * $limit;
 
 // Fetch published blog posts with pagination
 $posts = Post::getPublishedPosts($limit, $offset);
-
+//print_r($posts);
 // Get total number of published posts to calculate total pages
 $totalPosts = Post::getTotalPublishedPosts();
 $totalPages = ceil($totalPosts / $limit);

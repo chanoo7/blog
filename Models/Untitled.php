@@ -1,7 +1,4 @@
 <?php
-//require_once '../config/db_connection.php';
-require_once __DIR__ . '/../config/db_connection.php';
-
 class Post {
     public static function getAllPosts() {
         global $pdo;
@@ -9,23 +6,19 @@ class Post {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public static function getTotalPublishedPosts() {
-        global $pdo; // Adjust this based on your DB connection logic
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM blog_posts WHERE status = 'published'");
-        $stmt->execute();
-        return $stmt->fetchColumn(); // Returns the total count
-    }
+
     public static function createPost($title, $content, $author_id, $category) {
         global $pdo;
         $stmt = $pdo->prepare("INSERT INTO blog_posts (title, content, author_id, category) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$title, $content, $author_id, $category]);
     }
-    public static function getPublishedPosts() {
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM blog_posts ORDER BY publish_date DESC LIMIT 10");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+}
+?>
+
+
+
+<?php
+class Post {
     public static function getPostById($id) {
         global $pdo;
         $stmt = $pdo->prepare("SELECT * FROM blog_posts WHERE id = ?");
